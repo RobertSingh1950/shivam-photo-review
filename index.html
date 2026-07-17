@@ -58,12 +58,13 @@ Sab kuch <b>apne aap save hota rehta hai</b> — aadha bhar ke band kar doge to 
 <div class="toast" id="toast">Copy ho gaya ✅</div>
 
 <script>
-const PHOTOS = ['img-20250903-wa0001.webp','img-20250903-wa0002.webp','img-20250903-wa0005.webp','img-20250903-wa0010.webp','img-20250903-wa0013.webp','img-20250903-wa0018.webp','img-20260715-wa0038.webp','img-20260715-wa0039.webp','img-20260715-wa0041.webp','img-20260715-wa0042.webp','img-20260715-wa0045.webp','img-20260715-wa0047.webp','img-20260715-wa0048.webp','img-20260715-wa0049.webp','img-20260715-wa0050.webp','img-20260715-wa0051.webp','img-20260715-wa0052.webp','img-20260715-wa0053.webp','img-20260715-wa0055.webp','img-20260715-wa0056.webp','img-20260715-wa0057.webp','img-20260715-wa0058.webp','img-20260715-wa0059.webp','img-20260715-wa0060.webp','img-20260715-wa0061.webp','img-20260715-wa0062.webp','whatsapp-image-2026-07-17-at-3-17-41-pm.webp','whatsapp-image-2026-07-17-at-3-17-42-pm.webp','whatsapp-image-2026-07-17-at-3-17-42-pm-1.webp','whatsapp-image-2026-07-17-at-3-17-43-pm.webp'];
+// Batch 2 — pehli 30 photos ka kaam ho chuka hai, ye nayi 20 hain
+const PHOTOS = ['batch2-01.webp','batch2-02.webp','batch2-03.webp','batch2-04.webp','batch2-05.webp','batch2-06.webp','batch2-07.webp','batch2-08.webp','batch2-09.webp','batch2-10.webp','batch2-11.webp','batch2-12.webp','batch2-13.webp','batch2-14.webp','batch2-15.webp','batch2-16.webp','batch2-17.webp','batch2-18.webp','batch2-19.webp','batch2-20.webp'];
 
 const PROJECTS = ['— Project choose karo —','Omaxe Medocity','VBHC (Honda zone)','Krish Season (Honda zone)','Ekta Enclave','Aqasia Homes','Terra City','Lifestyle City','Chanderlok City','MGH Anandam (Dharuhera)','AMD City (Dharuhera)','Tulip City (Dharuhera)','Dwarkadish (Dharuhera)','MVL Coral','HFL Presidency Estate','Cosmos','Essentia','Terra Elegance','Terra Heritage','Terra Castle','Industrial — Bhiwadi','Industrial — Chopanki','Industrial — Khushkhera','Industrial — Honda zone','Industrial — Salarpur','Koi aur (naam likho)'];
 const TYPES = ['— Photo kis cheez ki hai —','Entry gate / entrance','Road / street','Plot (khaali)','Sample house / villa','Flat building bahar se','Flat andar se (interior)','Park / green area','Kuch aur'];
 
-const KEY = 'shivam-photo-labels-v1';
+const KEY = 'shivam-photo-labels-batch2';
 const state = JSON.parse(localStorage.getItem(KEY) || '{}');
 const grid = document.getElementById('grid');
 
@@ -111,7 +112,7 @@ document.addEventListener('input', (e) => {
 });
 
 function buildMessage() {
-  let lines = ['*Photo details — Shivam Properties*', ''];
+  let lines = ['*Photo details (Batch 2) — Shivam Properties*', ''];
   PHOTOS.forEach((file, idx) => {
     const s = state[file] || {};
     if (!s.project || s.project.startsWith('—')) return;
