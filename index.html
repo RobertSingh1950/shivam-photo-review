@@ -51,8 +51,9 @@ Sab bharne ke baad neeche green button dabao — WhatsApp pe list apne aap ban j
 </div>
 
 <div class="bar">
+  <button class="btn btn-copy" id="saveBtn">💾 Save</button>
   <button class="btn btn-copy" id="copyBtn">📋 Copy</button>
-  <a class="btn btn-wa" id="sendBtn" href="#">✅ WhatsApp pe bhejo</a>
+  <a class="btn btn-wa" id="sendBtn" href="#">✅ Submit — WhatsApp pe bhejo</a>
 </div>
 <div class="toast" id="toast">Copy ho gaya ✅</div>
 
@@ -124,17 +125,29 @@ function buildMessage() {
   return lines.join('\n');
 }
 
+const VIKAS_WA = '918570009071';
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => (t.style.display = 'none'), 1800);
+}
+
 document.getElementById('sendBtn').addEventListener('click', (e) => {
   e.preventDefault();
-  window.open('https://wa.me/?text=' + encodeURIComponent(buildMessage()), '_blank');
+  localStorage.setItem(KEY, JSON.stringify(state));
+  window.open('https://wa.me/' + VIKAS_WA + '?text=' + encodeURIComponent(buildMessage()), '_blank');
+});
+document.getElementById('saveBtn').addEventListener('click', () => {
+  localStorage.setItem(KEY, JSON.stringify(state));
+  toast('Save ho gaya ✅ Baad me wapas aake aage bhar sakte ho');
 });
 document.getElementById('copyBtn').addEventListener('click', async () => {
   await navigator.clipboard.writeText(buildMessage());
-  const t = document.getElementById('toast');
-  t.style.display = 'block';
-  setTimeout(() => (t.style.display = 'none'), 1600);
+  toast('Copy ho gaya ✅');
 });
-document.getElementById('newPhotoBtn').href = 'https://wa.me/?text=' + encodeURIComponent('Nayi property photo bhej raha hu 📸\nProject: \nKya hai (plot/flat/gate/road): \nSize & price: \nReady ya under-construction: ');
+document.getElementById('newPhotoBtn').href = 'https://wa.me/' + VIKAS_WA + '?text=' + encodeURIComponent('Nayi property photo bhej raha hu 📸\nProject: \nKya hai (plot/flat/gate/road): \nSize & price: \nReady ya under-construction: ');
 
 refresh();
 </script>
