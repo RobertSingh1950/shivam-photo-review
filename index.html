@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Shivam Properties — Photo Details</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #0f1115; color: #e8eaf0; padding: 14px 14px 110px; }
+  h1 { font-size: 19px; margin-bottom: 6px; }
+  .sub { color: #9aa3b2; font-size: 14px; margin-bottom: 14px; line-height: 1.5; }
+  .progress { position: sticky; top: 0; z-index: 5; background: #0f1115; padding: 8px 0; font-size: 14px; color: #35d6f4; font-weight: 600; }
+  .grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1100px) { .grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .card { background: #181c24; border: 1px solid #262c38; border-radius: 12px; overflow: hidden; }
+  .card.done { border-color: #2ea86f; }
+  .card img { width: 100%; height: 240px; object-fit: cover; display: block; }
+  .card .body { padding: 10px 12px 14px; }
+  .num { font-weight: 700; color: #35d6f4; font-size: 15px; margin-bottom: 8px; }
+  .num .tick { color: #2ea86f; display: none; }
+  .card.done .num .tick { display: inline; }
+  label { display: block; font-size: 12.5px; color: #9aa3b2; margin: 8px 0 3px; }
+  select, input[type=text] { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #333a48; background: #10141b; color: #e8eaf0; font-size: 15px; }
+  .other-input { display: none; margin-top: 6px; }
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; background: #141922; border-top: 1px solid #262c38; padding: 12px 14px; display: flex; gap: 10px; }
+  .btn { flex: 1; padding: 13px 10px; border: 0; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; }
+  .btn-wa { background: #25d366; color: #06280f; }
+  .btn-copy { background: #2a3140; color: #e8eaf0; flex: 0 0 110px; }
+  .upload { background: #181c24; border: 1px dashed #3a4356; border-radius: 12px; padding: 16px; margin: 22px 0; }
+  .upload h2 { font-size: 16px; margin-bottom: 8px; }
+  .upload p { font-size: 13.5px; color: #9aa3b2; line-height: 1.6; margin-bottom: 10px; }
+  .upload a { display: inline-block; background: #25d366; color: #06280f; font-weight: 700; padding: 11px 16px; border-radius: 10px; text-decoration: none; font-size: 14.5px; }
+  .toast { position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%); background: #2ea86f; color: #04120a; padding: 10px 18px; border-radius: 8px; font-weight: 700; display: none; }
+</style>
+</head>
+<body>
+<h1>📸 Shivam Properties — Photo Details</h1>
+<p class="sub">Sanjay bhai, har photo ke neeche <b>project ka naam</b> choose karo (aur photo kis cheez ki hai).
+Sab bharne ke baad neeche green button dabao — WhatsApp pe list apne aap ban jayegi. Aadha bhar ke band bhi kar doge to save rahega. 👍</p>
+<div class="progress" id="progress"></div>
+<div class="grid" id="grid"></div>
+
+<div class="upload">
+  <h2>➕ Nayi photo bhejni hai?</h2>
+  <p>Nayi photos WhatsApp pe hi bhejo, lekin har photo ke saath ye details likh do:<br>
+  <b>1.</b> Project ka naam &nbsp;<b>2.</b> Kya hai (plot / flat / gate / road / sample house) &nbsp;<b>3.</b> Size &amp; price agar pata ho &nbsp;<b>4.</b> Ready hai ya construction chal raha hai<br>
+  Tip: photo din ki roshni me, <b>phone ghuma ke (landscape)</b> lena — website pe wahi sabse achhi lagti hai.</p>
+  <a id="newPhotoBtn" href="#">📤 WhatsApp pe nayi photo bhejo</a>
+</div>
+
+<div class="bar">
+  <button class="btn btn-copy" id="copyBtn">📋 Copy</button>
+  <a class="btn btn-wa" id="sendBtn" href="#">✅ WhatsApp pe bhejo</a>
+</div>
+<div class="toast" id="toast">Copy ho gaya ✅</div>
+
+<script>
+const PHOTOS = ['img-20250903-wa0001.webp','img-20250903-wa0002.webp','img-20250903-wa0005.webp','img-20250903-wa0010.webp','img-20250903-wa0013.webp','img-20250903-wa0018.webp','img-20260715-wa0038.webp','img-20260715-wa0039.webp','img-20260715-wa0041.webp','img-20260715-wa0042.webp','img-20260715-wa0045.webp','img-20260715-wa0047.webp','img-20260715-wa0048.webp','img-20260715-wa0049.webp','img-20260715-wa0050.webp','img-20260715-wa0051.webp','img-20260715-wa0052.webp','img-20260715-wa0053.webp','img-20260715-wa0055.webp','img-20260715-wa0056.webp','img-20260715-wa0057.webp','img-20260715-wa0058.webp','img-20260715-wa0059.webp','img-20260715-wa0060.webp','img-20260715-wa0061.webp','img-20260715-wa0062.webp','whatsapp-image-2026-07-17-at-3-17-41-pm.webp','whatsapp-image-2026-07-17-at-3-17-42-pm.webp','whatsapp-image-2026-07-17-at-3-17-42-pm-1.webp','whatsapp-image-2026-07-17-at-3-17-43-pm.webp'];
+
+const PROJECTS = ['— Project choose karo —','Omaxe Medocity','VBHC (Honda zone)','Krish Season (Honda zone)','Ekta Enclave','Aqasia Homes','Terra City','Lifestyle City','Chanderlok City','MGH Anandam (Dharuhera)','AMD City (Dharuhera)','Tulip City (Dharuhera)','Dwarkadish (Dharuhera)','MVL Coral','HFL Presidency Estate','Cosmos','Essentia','Terra Elegance','Terra Heritage','Terra Castle','Industrial — Bhiwadi','Industrial — Chopanki','Industrial — Khushkhera','Industrial — Honda zone','Industrial — Salarpur','Koi aur (naam likho)'];
+const TYPES = ['— Photo kis cheez ki hai —','Entry gate / entrance','Road / street','Plot (khaali)','Sample house / villa','Flat building bahar se','Flat andar se (interior)','Park / green area','Kuch aur'];
+
+const KEY = 'shivam-photo-labels-v1';
+const state = JSON.parse(localStorage.getItem(KEY) || '{}');
+const grid = document.getElementById('grid');
+
+PHOTOS.forEach((file, idx) => {
+  const n = idx + 1;
+  const s = state[file] || {};
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <img src="img/${file}" loading="lazy" alt="Photo ${n}">
+    <div class="body">
+      <div class="num">Photo #${n} <span class="tick">✅</span></div>
+      <label>Project</label>
+      <select data-file="${file}" data-field="project">${PROJECTS.map(p => `<option${p === s.project ? ' selected' : ''}>${p}</option>`).join('')}</select>
+      <input class="other-input" type="text" data-file="${file}" data-field="other" placeholder="Project ka naam likho" value="${s.other || ''}">
+      <label>Photo kis cheez ki hai</label>
+      <select data-file="${file}" data-field="type">${TYPES.map(t => `<option${t === s.type ? ' selected' : ''}>${t}</option>`).join('')}</select>
+      <label>Kuch aur batana ho (optional)</label>
+      <input type="text" data-file="${file}" data-field="note" placeholder="jaise: 150 gaj corner plot" value="${s.note || ''}">
+    </div>`;
+  grid.appendChild(card);
+});
+
+function refresh() {
+  let done = 0;
+  document.querySelectorAll('.card').forEach((card, idx) => {
+    const file = PHOTOS[idx];
+    const s = state[file] || {};
+    const hasProject = s.project && !s.project.startsWith('—') && (s.project !== 'Koi aur (naam likho)' || (s.other || '').trim());
+    card.classList.toggle('done', !!hasProject);
+    card.querySelector('.other-input').style.display = s.project === 'Koi aur (naam likho)' ? 'block' : 'none';
+    if (hasProject) done++;
+  });
+  document.getElementById('progress').textContent = `${done} / ${PHOTOS.length} photo done`;
+  return done;
+}
+
+document.addEventListener('input', (e) => {
+  const el = e.target;
+  if (!el.dataset || !el.dataset.file) return;
+  state[el.dataset.file] = state[el.dataset.file] || {};
+  state[el.dataset.file][el.dataset.field] = el.value;
+  localStorage.setItem(KEY, JSON.stringify(state));
+  refresh();
+});
+
+function buildMessage() {
+  let lines = ['*Photo details — Shivam Properties*', ''];
+  PHOTOS.forEach((file, idx) => {
+    const s = state[file] || {};
+    if (!s.project || s.project.startsWith('—')) return;
+    const proj = s.project === 'Koi aur (naam likho)' ? (s.other || 'Other') : s.project;
+    let line = `#${idx + 1} (${file}) = ${proj}`;
+    if (s.type && !s.type.startsWith('—')) line += ` | ${s.type}`;
+    if ((s.note || '').trim()) line += ` | ${s.note.trim()}`;
+    lines.push(line);
+  });
+  if (lines.length === 2) lines.push('(abhi koi photo fill nahi hui)');
+  return lines.join('\n');
+}
+
+document.getElementById('sendBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.open('https://wa.me/?text=' + encodeURIComponent(buildMessage()), '_blank');
+});
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  await navigator.clipboard.writeText(buildMessage());
+  const t = document.getElementById('toast');
+  t.style.display = 'block';
+  setTimeout(() => (t.style.display = 'none'), 1600);
+});
+document.getElementById('newPhotoBtn').href = 'https://wa.me/?text=' + encodeURIComponent('Nayi property photo bhej raha hu 📸\nProject: \nKya hai (plot/flat/gate/road): \nSize & price: \nReady ya under-construction: ');
+
+refresh();
+</script>
+</body>
+</html>
