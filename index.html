@@ -58,13 +58,13 @@ Sab kuch <b>apne aap save hota rehta hai</b> — aadha bhar ke band kar doge to 
 <div class="toast" id="toast">Copy ho gaya ✅</div>
 
 <script>
-// Batch 3 — pehli 50 photos ka kaam ho chuka hai, ye nayi 14 hain
-const PHOTOS = ['batch3-01.webp','batch3-02.webp','batch3-03.webp','batch3-04.webp','batch3-05.webp','batch3-06.webp','batch3-07.webp','batch3-08.webp','batch3-09.webp','batch3-10.webp','batch3-11.webp','batch3-12.webp','batch3-13.webp','batch3-14.webp'];
+// Batch 4 — 22 July wali 24 nayi photos (flats ke andar + plot site)
+const PHOTOS = ['batch4-01.webp','batch4-02.webp','batch4-03.webp','batch4-04.webp','batch4-05.webp','batch4-06.webp','batch4-07.webp','batch4-08.webp','batch4-09.webp','batch4-10.webp','batch4-11.webp','batch4-12.webp','batch4-13.webp','batch4-14.webp','batch4-15.webp','batch4-16.webp','batch4-17.webp','batch4-18.webp','batch4-19.webp','batch4-20.webp','batch4-21.webp','batch4-22.webp','batch4-23.webp','batch4-24.webp'];
 
 const PROJECTS = ['— Project choose karo —','Omaxe Medocity','VBHC (Honda zone)','Krish Season (Honda zone)','Ekta Enclave','Aqasia Homes','Terra City','Lifestyle City','Chanderlok City','MGH Anandam (Dharuhera)','AMD City (Dharuhera)','Tulip City (Dharuhera)','Dwarkadish (Dharuhera)','MVL Coral','HFL Presidency Estate','Cosmos','Essentia','Terra Elegance','Terra Heritage','Terra Castle','Industrial — Bhiwadi','Industrial — Chopanki','Industrial — Khushkhera','Industrial — Honda zone','Industrial — Salarpur','Koi aur (naam likho)'];
 const TYPES = ['— Photo kis cheez ki hai —','Entry gate / entrance','Road / street','Plot (khaali)','Sample house / villa','Flat building bahar se','Flat andar se (interior)','Park / green area','Kuch aur'];
 
-const KEY = 'shivam-photo-labels-batch3';
+const KEY = 'shivam-photo-labels-batch4';
 const state = JSON.parse(localStorage.getItem(KEY) || '{}');
 const grid = document.getElementById('grid');
 
@@ -112,7 +112,7 @@ document.addEventListener('input', (e) => {
 });
 
 function buildMessage() {
-  let lines = ['*Photo details (Batch 3) — Shivam Properties*', ''];
+  let lines = ['*Photo details (Batch 4) — Shivam Properties*', ''];
   PHOTOS.forEach((file, idx) => {
     const s = state[file] || {};
     if (!s.project || s.project.startsWith('—')) return;
